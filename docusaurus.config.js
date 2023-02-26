@@ -71,10 +71,9 @@ const config = {
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
-            position: "left",
+            to: "/docs/state-management/josh-morony-rxjs-v-signals",
             label: "Docs",
+            position: "left",
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
@@ -96,8 +95,8 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: "State Management",
+                to: "/docs/state-management/josh-morony-rxjs-v-signals",
               },
             ],
           },

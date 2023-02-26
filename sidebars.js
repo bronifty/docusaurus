@@ -18,16 +18,10 @@ const sidebars = {
   // But you can create a sidebar manually
 
   docsSidebar: [
-    "intro",
-    "hello",
     {
       type: "category",
-      label: "Tutorial",
-      items: [
-        "tutorial-basics/create-a-document",
-        "tutorial-basics/create-a-blog-post",
-        "tutorial-basics/deploy-your-site",
-      ],
+      label: "State Management",
+      items: ["state-management/josh-morony-rxjs-v-signals"],
     },
   ],
 };

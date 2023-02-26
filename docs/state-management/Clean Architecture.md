@@ -1,0 +1,24 @@
+- [lost art of software design simon brown](https://www.youtube.com/watch?v=36OTe7LNd6M)
+	- [icepanel.io](https://icepanel.io)
+	- Context Containers Components Code
+		- Scope? all the building blocks on one diagram with connectors
+		- Users? rbac
+		- What? will they be doing with it
+		- SI systems integration requirements
+	- prove arch with concrete exs
+	- Arch decision record
+		- Title LDAP for multitenant integration
+		- Context value neutral language describing forces at play "It is..."
+		- Decision our response to these forces "We will..."
+		- Status proposed accepted rejected in progress complete deprecated etc
+		- Consequences resulting context after the decision past is prologue
+	- Upfront design is complete when:
+		- You understand the arch drivers (requirements, quality attributes - non-functional-design aka implementation details, constraints), context, scope and design decisions (technology, modularity, etc)
+		- Your design satisfies the key arch drivers and you have a way to communicate tech vision 
+			- test design decisions with arch dry runs, arch evaluations
+		- Identified risks (factors which could jeapordize delivery), POCs to de-risk, arch mods to de-risk
+		- Techniques: Workshops, Interviews, Event Storming, Impact Mapping, Domain Modeling, OOAD, CRC, DDD, Arch Reviews, ATAM, Arch Dry Runs, Risk Storming, Concrete Experiments, C4 Model, ADRs
+	- C4: System Container Component Code
+
+### Clean Coders - Clean Code in the Browser
+- [clean coders - clean code in the browser](https://cleancoders.com/library/personal)
