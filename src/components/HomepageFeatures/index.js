@@ -1,43 +1,42 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
+import React from "react";
+import clsx from "clsx";
+import styles from "./styles.module.css";
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: "Therapist Eliza",
+    Svg: require("@site/static/img/project-1.svg").default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        <a href="https://therapist-ai-eliza.vercel.app/">Site Link</a>
+        <p>
+          A connect web protocol buffer with gRPC POC that talks to a therapist
+          AI named Eliza
+        </p>
+        <a href="https://github.com/bronifty/buf.build-connect-web-example">
+          View on GitHub
+        </a>
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: "React Query TODOS",
+    Svg: require("@site/static/img/project-2.svg").default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
-  },
-  {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        <a href="https://vite-vercel-opal.vercel.app/">Site Link</a>
+        <p>An adaptation of John Smilga’s first Node project with vanilla js</p>
+        <a href="https://github.com/bronifty/serverless-mern-stack-vite">
+          View on GitHub
+        </a>
       </>
     ),
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({ Svg, title, description }) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx("col col--4")}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>
