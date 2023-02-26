@@ -121,6 +121,10 @@ const config = {
                 label: "GitHub",
                 href: "https://github.com/bronifty",
               },
+              {
+                label: "Links",
+                href: "https://bio.link/bronifty",
+              },
             ],
           },
         ],
