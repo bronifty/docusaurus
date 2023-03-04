@@ -23,8 +23,8 @@ const sidebars = {
       label: "State Management",
       items: [
         "state-management/learning-plan",
-        "state-management/josh-morony-rxjs-v-signals",
         "state-management/redux",
+        "state-management/rxjs",
       ],
     },
   ],

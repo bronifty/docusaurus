@@ -71,7 +71,7 @@ const config = {
         },
         items: [
           {
-            to: "/docs/state-management/josh-morony-rxjs-v-signals",
+            to: "/docs/state-management/learning-plan",
             label: "Docs",
             position: "left",
           },
@@ -96,7 +96,7 @@ const config = {
             items: [
               {
                 label: "State Management",
-                to: "/docs/state-management/josh-morony-rxjs-v-signals",
+                to: "/docs/state-management/learning-plan",
               },
             ],
           },
