@@ -21,7 +21,11 @@ const sidebars = {
     {
       type: "category",
       label: "State Management",
-      items: ["state-management/josh-morony-rxjs-v-signals"],
+      items: [
+        "state-management/learning-plan",
+        "state-management/josh-morony-rxjs-v-signals",
+        "state-management/redux",
+      ],
     },
   ],
 };

@@ -1,0 +1,192 @@
+---
+title: redux
+---
+
+# TL;DR:
+
+- Context provides store in main
+- Store is configured with the reducer
+- Slice is a reducer that exports actions and selectors
+- Component uses slice actions and selectors
+
+```ts
+// src/main.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import App from "./App";
+import "./index.css";
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
+```
+
+```ts
+// src/app/store.ts
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../features/counter/counterSlice";
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+```
+
+```ts
+// src/features/counter/counterSlice.ts
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  value: 0,
+  status: "idle",
+};
+
+export const counterSlice = createSlice({
+  name: "counter",
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.value++;
+    },
+    decrement: (state) => {
+      state.value--;
+    },
+  },
+});
+
+export const { increment, decrement } = counterSlice.actions;
+export const selectCount = (state) => state.counter.value;
+export default counterSlice.reducer;
+```
+
+```ts
+// src/features/counter/Counter.tsx
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment, selectCount } from "./counterSlice";
+
+export function Counter() {
+  const count = useSelector(selectCount);
+  const dispatch = useDispatch();
+
+  return (
+    <>
+      <button onClick={() => dispatch(decrement())}>-</button>
+      <span className={styles.value}>{count}</span>
+      <button onClick={() => dispatch(increment())}>+</button>
+    </>
+  );
+}
+```
+
+# Theory
+
+---
+
+- one way data flow (view => action => state =>
+  view)
+- functional programming principles (pure functions; immutable data structures)
+- spread the props and make a copy to create an update which is not referentially equal & therefore will trigger a re-render.
+
+### Objects
+
+```ts
+// original
+const book = {
+  price: 19,
+  title: "A Novel Idea",
+  author: {
+    firstName: "Holly",
+    lastName: "Wood",
+    contact: { email: "holly@authors.com", phone: "5551212" },
+  },
+};
+
+// update properties
+const newBook = { ...book, price: 10, title: "A Better Idea" };
+
+// spread nested objects too
+const update = {
+  ...book,
+  author: {
+    ...book.author,
+    contact: { ...book.author.contact, email: "updated@e.mail" },
+  },
+};
+
+// dynamic key
+let key = "PRICE";
+const update = {
+  ...book,
+  [key.toLowerCase()]: 20,
+};
+```
+
+### Arrays
+
+```ts
+// original
+const array = ["one", "two", "three"];
+
+// append
+const newArray = [...array, "four"];
+
+// prepend
+const newArray = ["zero", ...array];
+
+// remove
+const newArray = array.filter((item) => item !== "two");
+
+// copy
+const newArray = [...array];
+
+// insert
+const newArray = [...array.slice(0, 2), "two and a half", ...array.slice(2)];
+
+// update
+const newArray = array.map((item, idx) => (idx === 2 ? "updated idx 2" : item));
+
+// copy and insert
+const newArray = [...array.slice()]; // copy
+newArray.splice(2, 0, "two and a half"); // at idx 2, remove 0, insert "two and a half"
+```
+
+- in redux this looks like:
+
+```ts
+function reducer(state, action) {
+  /*
+    State looks like:
+
+    state = {
+      school: {
+        name: "Hogwarts",
+        house: {
+          name: "Ravenclaw",
+          points: 17
+        }
+      }
+    }
+  */
+
+  // Two points for Ravenclaw
+  return {
+    ...state, // copy the state (level 0)
+    school: {
+      ...state.school, // copy level 1
+      house: {         // replace state.school.house...
+        ...state.school.house, // copy existing house properties
+        points: state.school.house.points + 2  // change a property
+      }
+    }
+  }
+```
