@@ -81,7 +81,7 @@ export function Counter() {
   return (
     <>
       <button onClick={() => dispatch(decrement())}>-</button>
-      <span className={styles.value}>{count}</span>
+      <span>{count}</span>
       <button onClick={() => dispatch(increment())}>+</button>
     </>
   );
