@@ -110,3 +110,27 @@ fluvio consume greetings -B -d
 ###
 
 ### Run Fluvio Against Infinyon Cloud
+
+- fluvio switch cloud profile
+
+```bash
+fluvio profile switch infinyon-cloud
+```
+
+- fluvio topic create
+
+```bash
+fluvio topic create greetings-cloud
+```
+
+- fluvio produce message on topic
+
+```bash
+echo "Hello, Fluvio cloud" | fluvio produce greetings-cloud
+```
+
+- fluvio consume topic messages
+
+```bash
+fluvio consume greetings-cloud -B -d
+```
