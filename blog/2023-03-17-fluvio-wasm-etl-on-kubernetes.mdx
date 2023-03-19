@@ -1,0 +1,112 @@
+---
+slug: fluvio-wasm-etl-on-kubernetes
+title: fluvio wasm etl on kubernetes
+authors: [bronifty]
+tags: [fluvio, wasm, etl, rust, kubernetes]
+---
+
+[youtube tutorial](https://youtu.be/_vP5KlbO6og)
+
+### Install & Config
+
+- kubectl & helm are required to run a local cluster (or run fluvio on a remote cluster other than the infinyon cloud)
+- kubectl
+
+```bash
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+- helm
+
+```bash
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+```
+
+- KUBECONFIG
+  - this is required to configure kubectl for local dev, which will be used by fluvio cluster
+
+```bash
+export KUBECONFIG=./kubeconfig.yaml
+```
+
+- fluvio CLI
+  - fluvio cli will get a local profile once we spin up a cluster with fluvio cluster start —local (even though the cluster nodes per se are remote; local means not infinyon cloud)
+  - we will be able to switch between infinyon cloud and local cluster (or running against a custom remote cluster which is not infinyon cloud)
+
+```bash
+curl -fsS https://packages.fluvio.io/v1/install.sh | bash
+echo 'export PATH="${HOME}/.fluvio/bin:${PATH}"' >> ~/.bashrc
+```
+
+- check config
+  - kubectl and helm are required for the fluvio cli which is running a helm install against a local (or custom remote) cluster
+
+```bash
+kubectl get node -o wide
+kubectl version
+helm version
+fluvio version
+fluvio cluster check
+```
+
+- login to cloud and create infinyon-cloud profile
+
+```bash
+fluvio cloud login --use-oauth2
+```
+
+- fluvio profile list
+  - now current_profile = "infinyon-cloud” (\* asterisk marks current)
+
+```bash
+fluvio profile list
+# PROFILE         CLUSTER         ADDRESS                     TLS
+# local           local           localhost:9003              Disabled
+# *  infinyon-cloud  infinyon-cloud  router.infinyon.cloud:9003  Verified
+```
+
+- fluvio profile switch
+
+```bash
+fluvio profile switch local
+fluvio profile switch infinyon-cloud
+```
+
+### Run Fluvio Locally Against Remote Cluster
+
+- fluvio switch local profile
+
+```bash
+fluvio profile switch local
+```
+
+- fluvio start
+
+```bash
+fluvio cluster start --local
+```
+
+- fluvio topic create
+
+```bash
+fluvio topic create greetings
+```
+
+- fluvio produce message on topic
+
+```bash
+echo "Hello, Fluvio" | fluvio produce greetings
+```
+
+- fluvio consume topic messages
+
+```bash
+fluvio consume greetings -B -d
+```
+
+###
+
+### Run Fluvio Against Infinyon Cloud

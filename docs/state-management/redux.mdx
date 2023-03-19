@@ -2,7 +2,9 @@
 title: Redux
 ---
 
-# TL;DR:
+# Redux-Toolkit
+
+[rtk docs](https://redux-toolkit.js.org/)
 
 - Context provides store in main
 - Store is configured with the reducer
@@ -194,3 +196,52 @@ function reducer(state, action) {
     }
   }
 ```
+
+### Thunks
+
+- createAsyncThunk is a pattern for async calls to load data into a reducer; you define createAsyncThunk outside the slice and then include it in the builder pattern with case fulfilled (thunk will give 3 states: pending, fulfilled or rejected)
+
+```ts
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { userAPI } from "./userAPI";
+
+// First, create the thunk
+const fetchUserById = createAsyncThunk(
+  "users/fetchByIdStatus",
+  async (userId: number, thunkAPI) => {
+    const response = await userAPI.fetchById(userId);
+    return response.data;
+  }
+);
+
+interface UsersState {
+  entities: [];
+  loading: "idle" | "pending" | "succeeded" | "failed";
+}
+
+const initialState = {
+  entities: [],
+  loading: "idle",
+} as UsersState;
+
+// Then, handle actions in your reducers:
+const usersSlice = createSlice({
+  name: "users",
+  initialState,
+  reducers: {
+    // standard reducer logic, with auto-generated action types per reducer
+  },
+  extraReducers: (builder) => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchUserById.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.entities.push(action.payload);
+    });
+  },
+});
+
+// Later, dispatch the thunk as needed in the app
+dispatch(fetchUserById(123));
+```
+
+### RTK Query
