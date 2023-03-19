@@ -1,5 +1,7 @@
 # Fluvio
 
+[youtube tutorial](https://youtu.be/_vP5KlbO6og)
+
 ### Install & Config
 
 - kubectl & helm are required to run a local cluster (or run fluvio on a remote cluster other than the infinyon cloud)
