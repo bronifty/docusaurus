@@ -27,6 +27,11 @@ const sidebars = {
         "state-management/rxjs",
       ],
     },
+    {
+      type: "category",
+      label: "Data",
+      items: ["data/fluvio-init"],
+    },
   ],
 };
 

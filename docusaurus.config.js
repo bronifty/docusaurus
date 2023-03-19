@@ -98,6 +98,10 @@ const config = {
                 label: "State Management",
                 to: "/docs/state-management/learning-plan",
               },
+              {
+                label: "Data",
+                to: "/docs/data/fluvio-init",
+              },
             ],
           },
           {
