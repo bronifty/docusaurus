@@ -1,0 +1,20 @@
+---
+slug: dns-reverse-proxy-with-caddy-server
+title: DNS Reverse Proxy with Caddy Server
+authors: [bronifty]
+tags: [dns, caddy server, reverse proxy, cloudflare]
+image: /img/dns-reverse-proxy-overwrite-port.png
+---
+
+![DNS Reverse Proxy with Caddy Server](/img/dns-reverse-proxy-overwrite-port.png)
+
+# DNS - Reverse Proxy With Caddy Server
+
+It is possible to override the Caddy server proxy settings with an explicit port mapping. (Caveat: it’s not SSH unless you explicitly put it in the Caddyfile.)
+
+- portainer in prod [Caddyfile](https://github.com/bronifty/portainer-in-production/blob/main/configure-tls/Caddyfile)
+- cloudflare dns maps subdomain to the IP address with an A record
+- with these 2 ingredients, the subdomain is mapped to the IP address and even though that IP address is mapped to a specific service via Caddyfile, I can migrate across services running on various ports once I’m in
+  - For example, if i navigate to subdomain.domain.tld it will go to portainer service on the VPS.
+    - If I navigate to subdomain.domain.tld:30001 it will hit the nodeport service running on port 30001 on the VPS.
+    - You can overwrite the port mapping once you’re into the IP address with the A record and Caddyfile entry
